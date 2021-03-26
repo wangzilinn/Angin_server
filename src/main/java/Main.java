@@ -1,4 +1,7 @@
-import beans.reload.Watcher;
+import beans.Bean;
+import beans.Container;
+
+import java.util.Collections;
 
 /**
  * @Author: wangzilinn@gmail.com
@@ -6,7 +9,10 @@ import beans.reload.Watcher;
  */
 public class Main {
     public static void main(String[] args) {
-        System.out.println(Main.class.getResource("").getPath());
-        new Thread(new Watcher()).start();
+        //start context
+        Container container = Container.from(Main.class);
+        container.putBeans(Collections.singletonList("server.myBean"));
+        Bean bean = container.getBean("server.myBean");
+        bean.logic();
     }
 }
